@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <p>
+               
+              
+              Max Total Confirmed:<span id="datatc"></span> <br/>
+              Country Name: <span id="data"></span> <br/>
+
+              Min Total Confirmed:<span id="datam"></span> <br/>
+              Country Name: <span id="datacm"></span> <br/>
+               
+                
+           </p> 
+            
+        
+        <script>
+            var max=1;
+            var count="";
+            var min;
+            var coutry_name="";
+                    fetch('https://api.covid19api.com/summary').then((apidata)=>{
+                        console.log(apidata);
+                        return apidata.json();
+                        }).then((actualdata) =>{
+                min=actualdata.Countries[0].TotalConfirmed;
+                //alert(min);
+                for(var x in actualdata)
+                {   
+                    if(x=="Countries")
+                    {
+                      
+                            for(var y in actualdata.Countries)
+                            {
+                               
+                                if(actualdata.Countries[y].TotalConfirmed>max)
+                                {
+                                    max=actualdata.Countries[y].TotalConfirmed;
+                                    count=actualdata.Countries[y].Country;
+                                }
+                                 if(actualdata.Countries[y].TotalConfirmed<min && actualdata.Countries[y].TotalConfirmed>0)
+                                {
+                                    min=actualdata.Countries[y].TotalConfirmed;
+                                    country_name=actualdata.Countries[y].Country;
+                                }
+                                
+                            }
+                        
+                    }
+                    
+                }
+                             document.getElementById("data").innerHTML= "<b>" +  count +"</b>"   ;  
+                            
+                             document.getElementById("datatc").innerHTML="<b>" +  max +"</b>" ;
+                             document.getElementById("datam").innerHTML= "<b>" +  min +"</b>"   ;  
+                            
+                             document.getElementById("datacm").innerHTML="<b>" +  country_name +"</b>" ;
+                           
+                        }).catch((error) =>{
+                            console.log(error);
+                        });
+                </script>
+            
+            
+            
+
+            
+</body>
+</html>

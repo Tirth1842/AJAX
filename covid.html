@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <p>
+               Country: <span id="data"></span> <br/>
+               New Confirmed:<span id="datanc"></span> <br/>
+               New Deaths:<span id="datand"></span> <br/>
+               Total Confirmed:<span id="datatc"></span> <br/>
+               Total Deaths:<span id="datatd"></span> <br/>
+               Total Recovered:<span id="datatr"></span> <br/>
+                
+                
+           </p> 
+            
+        
+        <script>
+                    fetch('https://api.covid19api.com/summary').then((apidata)=>{
+                        console.log(apidata);
+                        return apidata.json();
+                        }).then((actualdata) =>{
+                
+                  document.getElementById("data").innerHTML= "<b>" +  actualdata.Countries[76].Country +"</b>"   ;  
+                            document.getElementById("datanc").innerHTML="<b>" +  actualdata.Countries[76].NewConfirmed +"</b>" ;
+                            document.getElementById("datand").innerHTML="<b>" +  actualdata.Countries[76].NewDeaths +"</b>" ;
+                            document.getElementById("datatc").innerHTML="<b>" +  actualdata.Countries[76].TotalConfirmed +"</b>" ;
+                            document.getElementById("datatd").innerHTML="<b>" +  actualdata.Countries[76].TotalDeaths +"</b>" ;
+                            document.getElementById("datatr").innerHTML="<b>" +  actualdata.Countries[76].TotalRecovered +"</b>" ;
+                        }).catch((error) =>{
+                            console.log(error);
+                        });
+                </script>
+            
+            
+            
+
+            
+</body>
+</html>
